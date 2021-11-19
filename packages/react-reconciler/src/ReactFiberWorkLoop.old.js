@@ -519,6 +519,8 @@ export function scheduleUpdateOnFiber(
   lane: Lane,
   eventTime: number,
 ) {
+
+  console.log('learn.async.3 scheduleUpdateOnFiber');
   checkForNestedUpdates();
   warnAboutRenderPhaseUpdatesInDEV(fiber);
 
@@ -1115,6 +1117,7 @@ function flushPendingDiscreteUpdates() {
 }
 
 export function batchedUpdates<A, R>(fn: A => R, a: A): R {
+  console.log('learn.7 batchedUpdates');
   const prevExecutionContext = executionContext;
   executionContext |= BatchedContext;
   try {
@@ -1130,6 +1133,7 @@ export function batchedUpdates<A, R>(fn: A => R, a: A): R {
 }
 
 export function batchedEventUpdates<A, R>(fn: A => R, a: A): R {
+  console.log('learn.7 batchedEventUpdates');
   const prevExecutionContext = executionContext;
   executionContext |= EventContext;
   try {
@@ -1189,6 +1193,7 @@ export function discreteUpdates<A, B, C, D, R>(
 }
 
 export function unbatchedUpdates<A, R>(fn: (a: A) => R, a: A): R {
+  console.log('learn.7 unbatchedUpdates')
   const prevExecutionContext = executionContext;
   executionContext &= ~BatchedContext;
   executionContext |= LegacyUnbatchedContext;

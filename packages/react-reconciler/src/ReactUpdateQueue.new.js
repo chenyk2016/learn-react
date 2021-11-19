@@ -196,6 +196,7 @@ export function createUpdate(eventTime: number, lane: Lane): Update<*> {
 }
 
 export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
+  console.log('learn.3 enqueueUpdate');
   const updateQueue = fiber.updateQueue;
   if (updateQueue === null) {
     // Only occurs if the fiber has been unmounted.
