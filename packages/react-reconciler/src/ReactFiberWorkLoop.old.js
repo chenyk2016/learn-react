@@ -520,8 +520,9 @@ export function scheduleUpdateOnFiber(
   eventTime: number,
 ) {
 
-  console.log('learn.async.3 scheduleUpdateOnFiber');
+  console.log('learn.3 scheduleUpdateOnFiber');
   checkForNestedUpdates();
+  console.log('learn.3.1 warnAboutRenderPhaseUpdatesInDEV');
   warnAboutRenderPhaseUpdatesInDEV(fiber);
 
   const root = markUpdateLaneFromFiberToRoot(fiber, lane);
@@ -571,14 +572,18 @@ export function scheduleUpdateOnFiber(
       (executionContext & (RenderContext | CommitContext)) === NoContext
     ) {
       // Register pending interactions on the root to avoid losing traced interaction data.
+      console.log('learn.3.2 schedulePendingInteractions');
       schedulePendingInteractions(root, lane);
 
       // This is a legacy edge case. The initial mount of a ReactDOM.render-ed
       // root inside of batchedUpdates should be synchronous, but layout updates
       // should be deferred until the end of the batch.
+      console.log('learn.3.3 performSyncWorkOnRoot');
       performSyncWorkOnRoot(root);
     } else {
+      console.log('learn.3.4 ensureRootIsScheduled');
       ensureRootIsScheduled(root, eventTime);
+      console.log('learn.3.5 schedulePendingInteractions');
       schedulePendingInteractions(root, lane);
       if (executionContext === NoContext) {
         // Flush the synchronous work now, unless we're already working or inside
@@ -586,7 +591,9 @@ export function scheduleUpdateOnFiber(
         // scheduleCallbackForFiber to preserve the ability to schedule a callback
         // without immediately flushing it. We only do this for user-initiated
         // updates, to preserve historical behavior of legacy mode.
+        console.log('learn.3.6 resetRenderTimer');
         resetRenderTimer();
+        console.log('learn.3.7 resetRenderTimer');
         flushSyncCallbackQueue();
       }
     }
@@ -601,14 +608,19 @@ export function scheduleUpdateOnFiber(
     ) {
       // This is the result of a discrete event. Track the lowest priority
       // discrete update per root so we can flush them early, if needed.
+
       if (rootsWithPendingDiscreteUpdates === null) {
+        console.log('learn.3.8 rootsWithPendingDiscreteUpdates');
         rootsWithPendingDiscreteUpdates = new Set([root]);
       } else {
+        console.log('learn.3.9 rootsWithPendingDiscreteUpdates');
         rootsWithPendingDiscreteUpdates.add(root);
       }
     }
+     console.log('learn.3.10');
     // Schedule other updates after in case the callback is sync.
     ensureRootIsScheduled(root, eventTime);
+    console.log('learn.3.11');
     schedulePendingInteractions(root, lane);
   }
 
@@ -2956,6 +2968,7 @@ function jnd(timeElapsed: number) {
 }
 
 function checkForNestedUpdates() {
+  console.log('learn.4.1 checkForNestedUpdates');
   if (nestedUpdateCount > NESTED_UPDATE_LIMIT) {
     nestedUpdateCount = 0;
     rootWithNestedUpdates = null;

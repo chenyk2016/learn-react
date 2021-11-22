@@ -32,12 +32,14 @@
             })
 
           console.log('2', this.state.value);
-          setTimeout(() => {
-            this.setState({
-              value: 3
-            })
-            console.log('3', this.state.value);
-          }, 1000)
+          // setTimeout(() => {
+          //   this.setState({
+          //     value: 3
+          //   }, () => {
+          //     console.log('4', this.state.value);
+          //   })
+          //   console.log('3', this.state.value);
+          // }, 5000)
         }
 
         render () {

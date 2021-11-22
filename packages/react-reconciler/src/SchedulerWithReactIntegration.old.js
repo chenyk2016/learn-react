@@ -166,6 +166,7 @@ export function cancelCallback(callbackNode: mixed) {
 }
 
 export function flushSyncCallbackQueue() {
+  console.log('learn.4.2.3 flushSyncCallbackQueue');
   if (immediateQueueCallbackNode !== null) {
     const node = immediateQueueCallbackNode;
     immediateQueueCallbackNode = null;
@@ -175,6 +176,7 @@ export function flushSyncCallbackQueue() {
 }
 
 function flushSyncCallbackQueueImpl() {
+  console.log('learn.4.2.4 flushSyncCallbackQueueImpl 执行callback队列');
   if (!isFlushingSyncQueue && syncQueue !== null) {
     // Prevent re-entrancy.
     isFlushingSyncQueue = true;

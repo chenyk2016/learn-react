@@ -3352,6 +3352,7 @@ function scheduleInteractions(
   lane: Lane | Lanes,
   interactions: Set<Interaction>,
 ) {
+  console.log('learn.4.2.1 scheduleInteractions');
   if (!enableSchedulerTracing) {
     return;
   }
@@ -3386,6 +3387,7 @@ function scheduleInteractions(
 }
 
 function schedulePendingInteractions(root: FiberRoot, lane: Lane | Lanes) {
+  console.log('learn.4.2 schedulePendingInteractions');
   // This is called when work is scheduled on a root.
   // It associates the current interactions with the newly-scheduled expiration.
   // They will be restored when that expiration is later committed.
